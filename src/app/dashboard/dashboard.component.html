@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row align-items-end">
+    <div class="col-md-12">
+      <button class="btn btn-dark float-right" (click)="logout()"> Log out</button>
+    </div>
+  </div>
+  <div class="align-items-center justify-content-center">
+    <div class="row ">
+      <p class="display-4">TODO List</p>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="input-group col-xs-12 col-sm-12 col-md-5 col-lg-4">
+        <input type="text" class="form-control" [(ngModel)]="taskText" (keyup.enter)="newTask()"/>
+        <div class="input-group-append">
+          <button class="btn btn-outline-dark" type="button" (click)="newTask()">Add new</button>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div *ngIf="!tasks.length" class="empty-list">Add your list item.</div>
+    <div class="list-group list-group-flush">
+      <a href="#" class="list-group-item list-group-item-action flex-column align-items-start"
+         (click)="toggleTaskStatus(i)"
+         *ngFor="let item of tasks;let i = index">
+        <div class="custom-control custom-checkbox" (change)="toggleTaskStatus(i)">
+          <input type="checkbox" class="custom-control-input" [ngModel]="item.isDone" id="isTaskDone">
+          <label class="custom-control-label" for="isTaskDone"><span
+            [ngStyle]="{'text-decoration': item.isDone ? 'line-through' : 'none' }">{{item.name}}</span> </label>
+          <button type="button" class="close" (click)="removeTask(i)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
